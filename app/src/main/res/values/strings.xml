@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">CvBuilderApp</string>
+    <string name="profilePic">Profile Picture</string>
+    <string name="personDet">Personal Details</string>
+    <string name="summary">Summary</string>
+    <string name="education">Education</string>
+    <string name="experience">Experience</string>
+    <string name="certifications">Certifications</string>
+    <string name="references">References</string>
+
 </resources>
