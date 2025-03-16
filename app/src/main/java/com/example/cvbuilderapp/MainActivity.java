@@ -17,9 +17,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
     Button btnProfilePic, btnPersonalDetails, btnEducation, btnSummary, btnReferences, btnCertifications, btnExperience;
-    ActivityResultLauncher<Intent> getImageLauncher,getPersonalDetails;
+    ActivityResultLauncher<Intent> getImageLauncher,getPersonalDetails,getSummary;
     ImageView ivProfile;
-    String name,email,phone;
+    String name,email,phone,summary;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +42,11 @@ public class MainActivity extends AppCompatActivity {
             getPersonalDetails.launch(i);
 
         });
+        btnSummary.setOnClickListener((v)->{
+            Intent i = new Intent(this,Summary.class);
+            getSummary.launch(i);
+
+        });
     }
 
     private void init() {
@@ -53,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         btnReferences = findViewById(R.id.btnReferences);
         btnExperience = findViewById(R.id.btnExperience);
         ivProfile = findViewById(R.id.ivProfile);
-        name = email = phone = "";
+        name = email = phone =summary= "";
 
 
 
@@ -82,6 +87,22 @@ public class MainActivity extends AppCompatActivity {
             else
             {
                 Toast.makeText(this, "Personal Details did not entered", Toast.LENGTH_SHORT).show();
+            }
+
+
+        });
+        getSummary = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),(result)->{
+            if(result.getResultCode() == RESULT_OK && result.getData()!=null)
+            {
+                Intent i = result.getData();
+                summary = i.getStringExtra("summary");
+
+                Toast.makeText(this,summary,Toast.LENGTH_SHORT).show();
+
+            }
+            else
+            {
+                Toast.makeText(this, "Summary did not entered", Toast.LENGTH_SHORT).show();
             }
 
 
