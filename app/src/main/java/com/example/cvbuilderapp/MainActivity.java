@@ -18,8 +18,9 @@ import androidx.core.view.WindowInsetsCompat;
 public class MainActivity extends AppCompatActivity {
     Button btnProfilePic, btnPersonalDetails, btnEducation, btnSummary, btnReferences, btnCertifications, btnExperience;
     ActivityResultLauncher<Intent> getImageLauncher,getPersonalDetails,getSummary,getEducation;
-    ImageView ivProfile;
+
     String name,email,phone,summary,edu1,edu2,edu3;
+    Uri image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +34,7 @@ public class MainActivity extends AppCompatActivity {
         });
         init();
         btnProfilePic.setOnClickListener((v)->{
-            Intent i = new Intent(Intent.ACTION_PICK);
-            i.setType("image/*");
+            Intent i = new Intent(this,ProfilePicture.class);
             getImageLauncher.launch(i);
         });
         btnPersonalDetails.setOnClickListener((v)->{
@@ -62,9 +62,9 @@ public class MainActivity extends AppCompatActivity {
         btnCertifications = findViewById(R.id.btnCertifications);
         btnReferences = findViewById(R.id.btnReferences);
         btnExperience = findViewById(R.id.btnExperience);
-        ivProfile = findViewById(R.id.ivProfile);
         name = email = phone =summary= "";
         edu1 = edu2 = edu3 = "";
+        image = null;
 
 
 
@@ -72,12 +72,11 @@ public class MainActivity extends AppCompatActivity {
                 (result)->{
                     if(result.getResultCode() == RESULT_OK && result.getData()!=null)
                     {
-                        Uri image = result.getData().getData();
-                        ivProfile.setImageURI(image);
+                        image = result.getData().getData();
                     }
                     else
                     {
-                        Toast.makeText(this, "Please Select the image", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Image Did not Selected", Toast.LENGTH_SHORT).show();
                     }
                 });
         getPersonalDetails = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),(result)->{

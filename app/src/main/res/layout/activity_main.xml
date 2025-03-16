@@ -11,14 +11,6 @@
 
     tools:context=".MainActivity">
 
-  <ImageView
-      android:layout_width="100dp"
-      android:layout_height="100dp"
-      android:layout_marginBottom="15dp"
-      android:id="@+id/ivProfile"
-      >
-
-  </ImageView>
 
 
   <Button
