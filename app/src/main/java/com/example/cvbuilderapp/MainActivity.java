@@ -17,9 +17,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
     Button btnProfilePic, btnPersonalDetails, btnEducation, btnSummary, btnReferences, btnCertifications, btnExperience;
-    ActivityResultLauncher<Intent> getImageLauncher,getPersonalDetails,getSummary;
+    ActivityResultLauncher<Intent> getImageLauncher,getPersonalDetails,getSummary,getEducation;
     ImageView ivProfile;
-    String name,email,phone,summary;
+    String name,email,phone,summary,edu1,edu2,edu3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +47,11 @@ public class MainActivity extends AppCompatActivity {
             getSummary.launch(i);
 
         });
+        btnEducation.setOnClickListener((v)->{
+            Intent i = new Intent(this,Education.class);
+            getEducation.launch(i);
+
+        });
     }
 
     private void init() {
@@ -59,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         btnExperience = findViewById(R.id.btnExperience);
         ivProfile = findViewById(R.id.ivProfile);
         name = email = phone =summary= "";
+        edu1 = edu2 = edu3 = "";
 
 
 
@@ -103,6 +109,23 @@ public class MainActivity extends AppCompatActivity {
             else
             {
                 Toast.makeText(this, "Summary did not entered", Toast.LENGTH_SHORT).show();
+            }
+
+
+        });
+        getEducation = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),(result)->{
+            if(result.getResultCode() == RESULT_OK && result.getData()!=null)
+            {
+                Intent i = result.getData();
+                edu1 = i.getStringExtra("edu1");
+                edu2 = i.getStringExtra("edu2");
+                edu3 = i.getStringExtra("edu3");
+                Toast.makeText(this,edu1+edu2+edu3,Toast.LENGTH_SHORT).show();
+
+            }
+            else
+            {
+                Toast.makeText(this, "Education Details did not entered", Toast.LENGTH_SHORT).show();
             }
 
 
