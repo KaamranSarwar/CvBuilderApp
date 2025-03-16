@@ -17,9 +17,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
     Button btnProfilePic, btnPersonalDetails, btnEducation, btnSummary, btnReferences, btnCertifications, btnExperience;
-    ActivityResultLauncher<Intent> getImageLauncher,getPersonalDetails,getSummary,getEducation;
+    ActivityResultLauncher<Intent> getImageLauncher,getPersonalDetails,getSummary,getEducation,getExperience;
 
-    String name,email,phone,summary,edu1,edu2,edu3;
+    String name,email,phone,summary,edu1,edu2,edu3,exp1,exp2,exp3;
     Uri image;
 
     @Override
@@ -52,6 +52,11 @@ public class MainActivity extends AppCompatActivity {
             getEducation.launch(i);
 
         });
+        btnExperience.setOnClickListener((v)->{
+            Intent i = new Intent(this,Experience.class);
+            getExperience.launch(i);
+
+        });
     }
 
     private void init() {
@@ -64,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         btnExperience = findViewById(R.id.btnExperience);
         name = email = phone =summary= "";
         edu1 = edu2 = edu3 = "";
+        exp1 = exp2 = exp3 = "";
         image = null;
 
 
@@ -125,6 +131,23 @@ public class MainActivity extends AppCompatActivity {
             else
             {
                 Toast.makeText(this, "Education Details did not entered", Toast.LENGTH_SHORT).show();
+            }
+
+
+        });
+        getExperience = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),(result)->{
+            if(result.getResultCode() == RESULT_OK && result.getData()!=null)
+            {
+                Intent i = result.getData();
+                exp1 = i.getStringExtra("exp1");
+                exp2 = i.getStringExtra("exp2");
+                exp3 = i.getStringExtra("exp3");
+                Toast.makeText(this,exp1+exp2+exp3,Toast.LENGTH_SHORT).show();
+
+            }
+            else
+            {
+                Toast.makeText(this, "Experience Details did not entered", Toast.LENGTH_SHORT).show();
             }
 
 
