@@ -9,4 +9,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="btnBackground">#F2FFFA</color>
     <color name="btnTextColor">#033D22</color>
+    <color name="btnCancel">#F44336</color>
+    <color name="btnSave">#0D840D</color>
+
+
+
 </resources>
