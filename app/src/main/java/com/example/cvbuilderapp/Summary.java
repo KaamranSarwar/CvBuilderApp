@@ -15,6 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class Summary extends AppCompatActivity {
 
     EditText etSummary;
+    String summary;
     Button btnCancel,btnSave;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,7 @@ public class Summary extends AppCompatActivity {
     }
     private void handleSave()
     {
-        String summary = etSummary.getText().toString();
+        summary = etSummary.getText().toString();
 
         if(summary.isEmpty())
         {
@@ -54,6 +55,8 @@ public class Summary extends AppCompatActivity {
         etSummary = findViewById(R.id.etSummary);
         btnCancel = findViewById(R.id.btnCancel);
         btnSave = findViewById(R.id.btnSave);
+        summary = getIntent().getStringExtra("summary");
+        etSummary.setText(summary);
     }
 
 }

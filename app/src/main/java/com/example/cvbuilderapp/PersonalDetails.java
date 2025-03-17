@@ -15,6 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class PersonalDetails extends AppCompatActivity {
     EditText etName,etEmail,etPhone;
     Button btnCancel,btnSave;
+    String name,email,phone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +38,9 @@ public class PersonalDetails extends AppCompatActivity {
     }
     private void handleSave()
     {
-        String name = etName.getText().toString();
-        String email = etEmail.getText().toString();
-        String phone = etPhone.getText().toString();
+        name = etName.getText().toString();
+        email = etEmail.getText().toString();
+        phone = etPhone.getText().toString();
 
         if(name.isEmpty())
         {
@@ -74,6 +75,13 @@ public class PersonalDetails extends AppCompatActivity {
         etName = findViewById(R.id.etName);
         etEmail = findViewById(R.id.etEmail);
         etPhone = findViewById(R.id.etPhone);
+        name = getIntent().getStringExtra("name");
+        email = getIntent().getStringExtra("email");
+        phone = getIntent().getStringExtra("phone");
+        etName.setText(name);
+        etPhone.setText(phone);
+        etEmail.setText(email);
+
     }
 
 }

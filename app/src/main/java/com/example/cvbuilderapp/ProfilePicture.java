@@ -91,7 +91,7 @@ public class ProfilePicture extends AppCompatActivity {
         }
         Intent intent = new Intent();
         intent.putExtra("image",imageUri.toString());
-
+        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         setResult(RESULT_OK,intent);
         finish();
     }

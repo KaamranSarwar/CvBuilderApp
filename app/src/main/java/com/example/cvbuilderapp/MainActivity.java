@@ -16,14 +16,15 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
-    Button btnProfilePic, btnPersonalDetails, btnEducation, btnSummary, btnReferences, btnCertifications, btnExperience;
-    ActivityResultLauncher<Intent> getImageLauncher,getPersonalDetails,getSummary,getEducation,getExperience,getCertificate,getReference;
+    Button btnProfilePic, btnPersonalDetails, btnEducation, btnSummary, btnReferences, btnCertifications, btnExperience,btnPreview;
+    ActivityResultLauncher<Intent> getImageLauncher,getPersonalDetails,getSummary,getEducation,getExperience,getCertificate,getReference,showPreview;
 
     String name,email,phone,summary,eduInstitute,eduDegree,eduYear,exp1,exp2,exp3;
     String issueDate,certificateName,issuingOrganization;
-    String refPerson,refJob,refCompany,refEmail;
+    String refPerson,refJob,refCompany,refEmail,imageString;
+    ImageView iv;
 
-    Uri image;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,25 +39,20 @@ public class MainActivity extends AppCompatActivity {
         init();
         btnProfilePic.setOnClickListener((v)->{
             Intent i = new Intent(this,ProfilePicture.class);
-            if(image != null)
-            {
-                i.putExtra("image",image.toString());
-
-            }
-            else
-            {
-                i.putExtra("image","");
-            }
-
+            i.putExtra("image",imageString);
             getImageLauncher.launch(i);
         });
         btnPersonalDetails.setOnClickListener((v)->{
             Intent i = new Intent(this,PersonalDetails.class);
+            i.putExtra("name",name);
+            i.putExtra("email",email);
+            i.putExtra("phone",phone);
             getPersonalDetails.launch(i);
 
         });
         btnSummary.setOnClickListener((v)->{
             Intent i = new Intent(this,Summary.class);
+            i.putExtra("summary",summary);
             getSummary.launch(i);
 
         });
@@ -97,9 +93,35 @@ public class MainActivity extends AppCompatActivity {
 
 
         });
+        btnPreview.setOnClickListener((v)->{
+            Intent i = new Intent(this,Preview.class);
+            i.putExtra("name",name);
+            i.putExtra("email",email);
+            i.putExtra("phone",phone);
+            i.putExtra("summary",summary);
+            i.putExtra("eduInstitute",eduInstitute);
+            i.putExtra("eduDegree",eduDegree);
+            i.putExtra("eduYear",eduYear);
+            i.putExtra("exp1",exp1);
+            i.putExtra("exp2",exp2);
+            i.putExtra("exp3",exp3);
+            i.putExtra("certificateName",certificateName);
+            i.putExtra("issuingOrganization",issuingOrganization);
+            i.putExtra("issueDate",issueDate);
+            i.putExtra("refPerson",refPerson);
+            i.putExtra("refEmail",refEmail);
+            i.putExtra("refJob",refJob);
+            i.putExtra("refCompany",refCompany);
+            i.putExtra("imageString",imageString);
+            i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            showPreview.launch(i);
+
+
+        });
     }
 
     private void init() {
+        iv = findViewById(R.id.ivImage);
         btnProfilePic = findViewById(R.id.btnProfilePic);
         btnPersonalDetails = findViewById(R.id.btnPersonalDetails);
         btnEducation = findViewById(R.id.btnEducation);
@@ -107,12 +129,13 @@ public class MainActivity extends AppCompatActivity {
         btnCertifications = findViewById(R.id.btnCertifications);
         btnReferences = findViewById(R.id.btnReferences);
         btnExperience = findViewById(R.id.btnExperience);
+        btnPreview = findViewById(R.id.btnPreview);
         name = email = phone =summary= "";
         eduInstitute = eduDegree = eduYear = "";
         exp1 = exp2 = exp3 = "";
         certificateName = issuingOrganization = issueDate = "";
         refPerson = refJob = refCompany = refEmail = "";
-        image = null;
+        imageString = "";
 
 
 
@@ -121,9 +144,7 @@ public class MainActivity extends AppCompatActivity {
                     if(result.getResultCode() == RESULT_OK && result.getData()!=null)
                     {
                         Intent i = result.getData();
-                        String imageString = i.getStringExtra("image");
-                        image = Uri.parse(imageString);
-
+                        imageString = i.getStringExtra("image");
                     }
                     else
                     {
@@ -142,7 +163,8 @@ public class MainActivity extends AppCompatActivity {
             }
             else
             {
-                Toast.makeText(this, "Personal Details did not entered", Toast.LENGTH_SHORT).show();
+                if(name.isEmpty())
+                    Toast.makeText(this, "Personal Details did not entered", Toast.LENGTH_SHORT).show();
             }
 
 
@@ -158,7 +180,8 @@ public class MainActivity extends AppCompatActivity {
             }
             else
             {
-                Toast.makeText(this, "Summary did not entered", Toast.LENGTH_SHORT).show();
+                if(summary.isEmpty())
+                    Toast.makeText(this, "Summary did not entered", Toast.LENGTH_SHORT).show();
             }
 
 
@@ -175,7 +198,8 @@ public class MainActivity extends AppCompatActivity {
             }
             else
             {
-                Toast.makeText(this, "Education Details did not entered", Toast.LENGTH_SHORT).show();
+                if(eduDegree.isEmpty() && eduInstitute.isEmpty() && eduYear.isEmpty())
+                    Toast.makeText(this, "Education Details did not entered", Toast.LENGTH_SHORT).show();
             }
 
 
@@ -193,7 +217,8 @@ public class MainActivity extends AppCompatActivity {
             }
             else
             {
-                Toast.makeText(this, "Experience Details did not entered", Toast.LENGTH_SHORT).show();
+                if(exp1.isEmpty() &&exp2.isEmpty() )
+                    Toast.makeText(this, "Experience Details did not entered", Toast.LENGTH_SHORT).show();
             }
 
 
@@ -237,6 +262,18 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+        });
+        showPreview = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),(result)->{
+            if(result.getResultCode() == RESULT_OK )
+            {
+                name = email = phone =summary= "";
+                eduInstitute = eduDegree = eduYear = "";
+                exp1 = exp2 = exp3 = "";
+                certificateName = issuingOrganization = issueDate = "";
+                refPerson = refJob = refCompany = refEmail = "";
+                imageString = "";
+
+            }
         });
 }
 
