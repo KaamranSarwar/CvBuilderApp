@@ -17,10 +17,11 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
     Button btnProfilePic, btnPersonalDetails, btnEducation, btnSummary, btnReferences, btnCertifications, btnExperience;
-    ActivityResultLauncher<Intent> getImageLauncher,getPersonalDetails,getSummary,getEducation,getExperience,getCertificate;
+    ActivityResultLauncher<Intent> getImageLauncher,getPersonalDetails,getSummary,getEducation,getExperience,getCertificate,getReference;
 
     String name,email,phone,summary,eduInstitute,eduDegree,eduYear,exp1,exp2,exp3;
     String issueDate,certificateName,issuingOrganization;
+    String refPerson,refJob,refCompany,refEmail;
 
     Uri image;
 
@@ -86,6 +87,16 @@ public class MainActivity extends AppCompatActivity {
 
 
         });
+        btnReferences.setOnClickListener((v)->{
+            Intent i = new Intent(this,References.class);
+            i.putExtra("refCompany",refCompany);
+            i.putExtra("refEmail",refEmail);
+            i.putExtra("refPerson",refPerson);
+            i.putExtra("refJob",refJob);
+            getReference.launch(i);
+
+
+        });
     }
 
     private void init() {
@@ -100,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
         eduInstitute = eduDegree = eduYear = "";
         exp1 = exp2 = exp3 = "";
         certificateName = issuingOrganization = issueDate = "";
+        refPerson = refJob = refCompany = refEmail = "";
         image = null;
 
 
@@ -201,6 +213,26 @@ public class MainActivity extends AppCompatActivity {
             {
                 if(certificateName.isEmpty() && issuingOrganization.isEmpty() && issueDate.isEmpty())
                     Toast.makeText(this, "Certification Details did not entered", Toast.LENGTH_SHORT).show();
+            }
+
+
+
+        });
+        getReference = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),(result)->{
+            if(result.getResultCode() == RESULT_OK && result.getData()!=null)
+            {
+                Intent i = result.getData();
+                refPerson = i.getStringExtra("refPerson");
+                refEmail = i.getStringExtra("refEmail");
+                refCompany = i.getStringExtra("refCompany");
+                refJob = i.getStringExtra("refJob");
+                Toast.makeText(this,refPerson+refEmail+refJob+refCompany,Toast.LENGTH_SHORT).show();
+
+            }
+            else
+            {
+                if(refPerson.isEmpty() && refCompany.isEmpty() && refJob.isEmpty()&& refEmail.isEmpty())
+                    Toast.makeText(this, "Reference Details did not entered", Toast.LENGTH_SHORT).show();
             }
 
 

@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Experience"
+    tools:context=".References"
     android:orientation="vertical"
     android:background="@color/teal_700"
     android:gravity="center"
@@ -13,7 +13,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/experience"
+        android:text="@string/references"
+        android:layout_marginTop="-50dp"
         android:textSize="40sp"
         android:textAlignment="center"
         android:textStyle="bold"
@@ -26,11 +27,65 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="Person Name"
+        android:textSize="22sp"
+        android:textStyle="bold"
+
+        android:textColor="@color/btnTextColor"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp">
+
+    </TextView>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:background="@color/btnBackground"
+        android:textColor="@color/btnTextColor"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:id="@+id/etRefPerson">
+
+    </EditText>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Job Title"
+        android:textSize="22sp"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/btnTextColor"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp">
+
+    </TextView>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:background="@color/btnBackground"
+        android:textColor="@color/btnTextColor"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:id="@+id/etRefJob">
+
+    </EditText>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Company Name"
         android:textSize="22sp"
         android:textStyle="bold"
-
         android:textColor="@color/btnTextColor"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp">
 
@@ -47,17 +102,18 @@
         android:textColor="@color/btnTextColor"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
-        android:id="@+id/etExp1">
+        android:id="@+id/etRefCompany"
+        >
 
     </EditText>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Role"
+        android:text="Contact Email"
         android:textSize="22sp"
-        android:layout_marginTop="20dp"
         android:textStyle="bold"
         android:textColor="@color/btnTextColor"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp">
 
@@ -74,36 +130,8 @@
         android:textColor="@color/btnTextColor"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
-        android:id="@+id/etExp2">
-
-    </EditText>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Description (optional)"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:textColor="@color/btnTextColor"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp">
-
-    </TextView>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginTop="5dp"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:background="@color/btnBackground"
-        android:textColor="@color/btnTextColor"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:gravity="top"
-        android:id="@+id/etExp3"
-        android:inputType="textMultiLine">
+        android:id="@+id/etRefEmail"
+        >
 
     </EditText>
     <LinearLayout
