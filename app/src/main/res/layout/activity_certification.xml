@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Experience"
+    tools:context=".Certification"
     android:orientation="vertical"
     android:background="@color/teal_700"
     android:gravity="center"
@@ -13,7 +13,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/experience"
+        android:text="@string/certifications"
+        android:layout_marginTop="-150dp"
         android:textSize="40sp"
         android:textAlignment="center"
         android:textStyle="bold"
@@ -26,7 +27,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Company Name"
+        android:text="Certification Name"
         android:textSize="22sp"
         android:textStyle="bold"
 
@@ -45,13 +46,13 @@
         android:textColor="@color/btnTextColor"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
-        android:id="@+id/etExp1">
+        android:id="@+id/etCName">
 
     </EditText>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Role"
+        android:text="Issuing organization"
         android:textSize="22sp"
         android:layout_marginTop="20dp"
         android:textStyle="bold"
@@ -70,13 +71,13 @@
         android:textColor="@color/btnTextColor"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
-        android:id="@+id/etExp2">
+        android:id="@+id/etIssueOrganization">
 
     </EditText>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Description (optional)"
+        android:text="Date Of Issue"
         android:textSize="22sp"
         android:textStyle="bold"
         android:textColor="@color/btnTextColor"
@@ -87,7 +88,7 @@
     </TextView>
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="40dp"
         android:layout_marginTop="5dp"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -95,8 +96,11 @@
         android:textColor="@color/btnTextColor"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
-        android:id="@+id/etExp3"
-        android:inputType="textMultiLine">
+        android:clickable="true"
+        android:focusable="false"
+        android:id="@+id/etIssueDate"
+        android:inputType="none"
+        >
 
     </EditText>
     <LinearLayout

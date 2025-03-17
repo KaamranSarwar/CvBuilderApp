@@ -16,9 +16,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class ProfilePicture extends AppCompatActivity {
-    ImageView ivProfile;
+    ImageView ivProfile1;
     Button btnSave,btnCancel,btnImage;
     Intent imageIntent;
+    String ImageString;
+    Uri imageUri;
     ActivityResultLauncher<Intent> getImageLauncher;
 
     @Override
@@ -47,18 +49,28 @@ public class ProfilePicture extends AppCompatActivity {
     }
     private void init()
     {
+        ivProfile1 = findViewById(R.id.ivImage);
         btnCancel = findViewById(R.id.btnCancel);
         btnSave = findViewById(R.id.btnSave);
         btnImage = findViewById(R.id.btnImage);
-        ivProfile = findViewById(R.id.ivImage);
-        imageIntent = null;
+        ImageString = getIntent().getStringExtra("image");
+        imageUri = null;
+
+        if(ImageString !=null && !ImageString.isEmpty()) {
+            imageUri = Uri.parse(ImageString);
+            if (imageUri != null) {
+                Toast.makeText(this, imageUri.toString(), Toast.LENGTH_SHORT).show();
+               //ivProfile1.setImageURI(imageUri);
+
+            }
+        }
         getImageLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 (result)->{
                     if(result.getResultCode() == RESULT_OK && result.getData()!=null)
                     {
                         imageIntent = result.getData();
-                        Uri image = imageIntent.getData();
-                        ivProfile.setImageURI(image);
+                        imageUri = imageIntent.getData();
+                        ivProfile1.setImageURI(imageUri);
                     }
                     else
                     {
@@ -72,13 +84,15 @@ public class ProfilePicture extends AppCompatActivity {
     {
 
 
-        if(imageIntent == null)
+        if(imageUri == null)
         {
             Toast.makeText(this,"Please Select image First",Toast.LENGTH_SHORT).show();
             return;
         }
+        Intent intent = new Intent();
+        intent.putExtra("image",imageUri.toString());
 
-        setResult(RESULT_OK,imageIntent);
+        setResult(RESULT_OK,intent);
         finish();
     }
 }

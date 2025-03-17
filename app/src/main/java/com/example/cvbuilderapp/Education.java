@@ -16,6 +16,7 @@ public class Education extends AppCompatActivity {
     EditText etEdu1,etEdu2,etEdu3;
 
     Button btnCancel,btnSave;
+    String edu1,edu2,edu3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,18 +42,25 @@ public class Education extends AppCompatActivity {
         etEdu1 = findViewById(R.id.etEdu1);
         etEdu2 = findViewById(R.id.etEdu2);
         etEdu3 = findViewById(R.id.etEdu3);
+
+        edu1 = getIntent().getStringExtra("edu1");
+        edu2 = getIntent().getStringExtra("edu2");
+        edu3 = getIntent().getStringExtra("edu3");
+        etEdu1.setText(edu1);
+        etEdu2.setText(edu2);
+        etEdu3.setText(edu3);
         btnCancel = findViewById(R.id.btnCancel);
         btnSave = findViewById(R.id.btnSave);
     }
     private void handleSave()
     {
-        String edu1 = etEdu1.getText().toString();
-        String edu2 = etEdu2.getText().toString();
-        String edu3 = etEdu3.getText().toString();
+        edu1 = etEdu1.getText().toString();
+        edu2 = etEdu2.getText().toString();
+        edu3 = etEdu3.getText().toString();
 
-        if(edu1.isEmpty() && edu2.isEmpty() && edu3.isEmpty())
+        if(edu1.isEmpty() || edu2.isEmpty() || edu3.isEmpty())
         {
-            Toast.makeText(this,"Please Enter At least one Education Detail",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Please Enter complete Education Detail",Toast.LENGTH_SHORT).show();
             return;
         }
 

@@ -16,6 +16,7 @@ public class Experience extends AppCompatActivity {
     EditText etExp1,etExp2,etExp3;
 
     Button btnCancel,btnSave;
+    String exp1,exp2,exp3;
 
 
     @Override
@@ -44,16 +45,22 @@ public class Experience extends AppCompatActivity {
         etExp3 = findViewById(R.id.etExp3);
         btnCancel = findViewById(R.id.btnCancel);
         btnSave = findViewById(R.id.btnSave);
+        exp1 = getIntent().getStringExtra("exp1");
+        exp2 = getIntent().getStringExtra("exp2");
+        exp3 = getIntent().getStringExtra("exp3");
+        etExp1.setText(exp1);
+        etExp2.setText(exp2);
+        etExp3.setText(exp3);
     }
     private void handleSave()
     {
-        String exp1 = etExp1.getText().toString();
-        String exp2 = etExp2.getText().toString();
-        String exp3 = etExp3.getText().toString();
+        exp1 = etExp1.getText().toString();
+        exp2 = etExp2.getText().toString();
+        exp3 = etExp3.getText().toString();
 
-        if(exp1.isEmpty() && exp2.isEmpty() && exp3.isEmpty())
+        if(exp1.isEmpty() || exp2.isEmpty())
         {
-            Toast.makeText(this,"Please Enter At least one Experience Detail",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Please Enter Company Name and role of Experience ",Toast.LENGTH_SHORT).show();
             return;
         }
 

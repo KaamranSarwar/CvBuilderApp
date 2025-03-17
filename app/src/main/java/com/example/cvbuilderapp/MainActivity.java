@@ -17,9 +17,11 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
     Button btnProfilePic, btnPersonalDetails, btnEducation, btnSummary, btnReferences, btnCertifications, btnExperience;
-    ActivityResultLauncher<Intent> getImageLauncher,getPersonalDetails,getSummary,getEducation,getExperience;
+    ActivityResultLauncher<Intent> getImageLauncher,getPersonalDetails,getSummary,getEducation,getExperience,getCertificate;
 
-    String name,email,phone,summary,edu1,edu2,edu3,exp1,exp2,exp3;
+    String name,email,phone,summary,eduInstitute,eduDegree,eduYear,exp1,exp2,exp3;
+    String issueDate,certificateName,issuingOrganization;
+
     Uri image;
 
     @Override
@@ -35,6 +37,16 @@ public class MainActivity extends AppCompatActivity {
         init();
         btnProfilePic.setOnClickListener((v)->{
             Intent i = new Intent(this,ProfilePicture.class);
+            if(image != null)
+            {
+                i.putExtra("image",image.toString());
+
+            }
+            else
+            {
+                i.putExtra("image","");
+            }
+
             getImageLauncher.launch(i);
         });
         btnPersonalDetails.setOnClickListener((v)->{
@@ -49,12 +61,29 @@ public class MainActivity extends AppCompatActivity {
         });
         btnEducation.setOnClickListener((v)->{
             Intent i = new Intent(this,Education.class);
+            i.putExtra("edu1",eduInstitute);
+            i.putExtra("edu2",eduDegree);
+            i.putExtra("edu3",eduYear);
+
             getEducation.launch(i);
 
         });
         btnExperience.setOnClickListener((v)->{
             Intent i = new Intent(this,Experience.class);
+            i.putExtra("exp1",exp1);
+            i.putExtra("exp2",exp2);
+            i.putExtra("exp3",exp3);
             getExperience.launch(i);
+
+
+        });
+        btnCertifications.setOnClickListener((v)->{
+            Intent i = new Intent(this,Certification.class);
+            i.putExtra("cName",certificateName);
+            i.putExtra("issOrg",issuingOrganization);
+            i.putExtra("issDate",issueDate);
+            getCertificate.launch(i);
+
 
         });
     }
@@ -68,8 +97,9 @@ public class MainActivity extends AppCompatActivity {
         btnReferences = findViewById(R.id.btnReferences);
         btnExperience = findViewById(R.id.btnExperience);
         name = email = phone =summary= "";
-        edu1 = edu2 = edu3 = "";
+        eduInstitute = eduDegree = eduYear = "";
         exp1 = exp2 = exp3 = "";
+        certificateName = issuingOrganization = issueDate = "";
         image = null;
 
 
@@ -78,7 +108,10 @@ public class MainActivity extends AppCompatActivity {
                 (result)->{
                     if(result.getResultCode() == RESULT_OK && result.getData()!=null)
                     {
-                        image = result.getData().getData();
+                        Intent i = result.getData();
+                        String imageString = i.getStringExtra("image");
+                        image = Uri.parse(imageString);
+
                     }
                     else
                     {
@@ -122,16 +155,17 @@ public class MainActivity extends AppCompatActivity {
             if(result.getResultCode() == RESULT_OK && result.getData()!=null)
             {
                 Intent i = result.getData();
-                edu1 = i.getStringExtra("edu1");
-                edu2 = i.getStringExtra("edu2");
-                edu3 = i.getStringExtra("edu3");
-                Toast.makeText(this,edu1+edu2+edu3,Toast.LENGTH_SHORT).show();
+                eduInstitute = i.getStringExtra("edu1");
+                eduDegree = i.getStringExtra("edu2");
+                eduYear = i.getStringExtra("edu3");
+                Toast.makeText(this,eduInstitute+eduDegree+eduYear,Toast.LENGTH_SHORT).show();
 
             }
             else
             {
                 Toast.makeText(this, "Education Details did not entered", Toast.LENGTH_SHORT).show();
             }
+
 
 
         });
@@ -149,6 +183,26 @@ public class MainActivity extends AppCompatActivity {
             {
                 Toast.makeText(this, "Experience Details did not entered", Toast.LENGTH_SHORT).show();
             }
+
+
+
+        });
+        getCertificate = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),(result)->{
+            if(result.getResultCode() == RESULT_OK && result.getData()!=null)
+            {
+                Intent i = result.getData();
+                certificateName = i.getStringExtra("cName");
+                issuingOrganization = i.getStringExtra("issOrg");
+                issueDate = i.getStringExtra("issDate");
+                Toast.makeText(this,certificateName+issuingOrganization+issueDate,Toast.LENGTH_SHORT).show();
+
+            }
+            else
+            {
+                if(certificateName.isEmpty() && issuingOrganization.isEmpty() && issueDate.isEmpty())
+                    Toast.makeText(this, "Certification Details did not entered", Toast.LENGTH_SHORT).show();
+            }
+
 
 
         });
